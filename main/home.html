@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap');
+        
+        .window {
+            background: rgba(30, 30, 30, 0.88) !important;
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+            border-radius: 10px;
+        }
+        .floating-music-player {
+            background: rgba(30, 30, 30, 0.88) !important;
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+            border-radius: 100px;
+        }
+        
+        .window-header {
+            background: rgba(40, 40, 40, 0.95) !important;
+            font-size: 13px;
+            border-radius: 10px 10px 0 0;
+        }
+        
+        .window-title, h1, h2, h3, .preview-title, .song-title {
+            font-family: 'Orbitron', monospace;
+            font-weight: bold;
+            letter-spacing: 0.05em;
+            color: #E5E7EB;
+        }
+        
+        body, .window-preview, p, span, div {
+            font-family: 'Inter', sans-serif;
+            color: #E5E7EB;
+            line-height: 1.6;
+        }
+        
+        .window-preview {
+            padding: 18px 20px !important;
+        }
+        
+        .preview-description, .taskbar-preview-title {
+            color: #9CA3AF;
+        }
+        
+        strong {
+            color: #22C55E !important;
+        }
+        
+        .window-controls button:hover, .music-btn:hover {
+            background: #8B0000;
+        }
+    </style>
+</head>
+<body>
+
+<div class="desktop">
+    <div class="window minimized" id="factsWindow" style="display: none;">
+        <div class="window-header"> 
+            <span class="window-title">Fun Facts</span>
+            <div class="window-controls">
+                <button class="minimize-btn" onclick="minimizeWindow('factsWindow')">−</button>
+                <button class="maximize-btn" onclick="maximizeWindow('factsWindow')">□</button>
+                <button class="close-btn" onclick="closeWindow('factsWindow')">×</button>
+            </div>
+        </div>
+        <div class="window-preview" style="font-size: 13px; overflow-y: auto; height: 150px; max-height: 150px;">
+            <strong style="color: #E5E7EB !important;">Personal Facts:</strong><br>
+            • I like it when someone runs their fingers through my hair, like casually combing it with their hand.<br><br>
+            • Around 70% of my wardrobe is black.<br><br>
+            • My older brother and I don't really talk unless we need something from each other—even though we're not on bad terms.<br><br>
+            • My face is asymmetrical, which is why I don't like using the back camera.<br><br>
+            • I can spend hours just listening to music and staring at the ceiling.<br><br>
+            • I'm more comfortable expressing myself through text than speaking out loud.
+        </div>
+    </div>
+
+    <div class="window minimized" id="favoritesWindow" style="display: none;">
+        <div class="window-header">
+            <span class="window-title">My Favorites</span>
+            <div class="window-controls">
+                <button class="minimize-btn" onclick="minimizeWindow('favoritesWindow')">−</button>
+                <button class="close-btn" onclick="closeWindow('favoritesWindow')">×</button>
+            </div>
+        </div>
+        <div class="window-preview">
+            <div class="favorites-item" data-category="gaming">
+                <img src="../PHOTOS/images/gameIcon.png" alt="Gaming" class="favorite-icon game-icon">
+                <span>Gaming Hub</span>
+                <div class="preview-tooltip">
+                    <div class="preview-content">
+                        <div class="preview-thumbnail">🎮</div>
+                        <div class="preview-title">Gaming Hub</div>
+                        <div class="preview-description">Action, RPG, Indie games and achievements</div>
+                    </div>
+                </div>
+            </div>
+            <div class="favorites-item" data-category="music">
+                <img src="../PHOTOS/images/mscIcon.png" alt="Music" class="favorite-icon">
+                <span>Music Corner</span>
+                <div class="preview-tooltip">
+                    <div class="preview-content">
+                        <div class="preview-thumbnail">🎵</div>
+                        <div class="preview-title">Music Corner</div>
+                        <div class="preview-description">Synthwave, Lo-fi, Electronic playlists</div>
+                    </div>
+                </div>
+            </div>
+            <div class="favorites-item" data-category="anime">
+                <img src="../PHOTOS/images/animeIcon.png" alt="Anime" class="favorite-icon anime-icon">
+                <span>Anime</span>
+                <div class="preview-tooltip">
+                    <div class="preview-content">
+                        <div class="preview-thumbnail">📺</div>
+                        <div class="preview-title">Anime World</div>
+                        <div class="preview-description">Serial Experiments Lain, Ghost in the Shell</div>
+                    </div>
+                </div>
+            </div>
+            <img src="../gifs/clove.gif" alt="Clove" class="favorites-footer-gif">
+        </div>
+    </div>
+
+    <div class="window minimized" id="imageWindow" style="display: none;">
+        <div class="window-header">
+            <div style="overflow: hidden; white-space: nowrap; font-family: 'Orbitron', monospace; font-weight: bold; font-size: 13px;">
+                <div style="display: inline-block; animation: scroll-right 10s linear infinite; font-family: 'Orbitron', monospace; font-weight: bold; font-size: 13px;">LETS ALL LOVE LAIN LETS ALL LOVE LAIN LETS ALL LOVE LAIN LETS ALL LOVE LAIN LETS ALL LOVE LAIN LETS ALL LOVE LAIN</div>
+            </div>
+            <style>
+                @keyframes scroll-right {
+                    0% { transform: translateX(-100%); }
+                    50% { transform: translateX(0%); }
+                    100% { transform: translateX(100%); }
+                }
+                @keyframes scroll-left {
+                    0% { transform: translateX(100%); }
+                    50% { transform: translateX(0%); }
+                    100% { transform: translateX(-100%); }
+                }
+            </style>
+        </div>
+        <div class="window-preview">
+            <img src="../gifs/lainhome.gif" alt="Lain Home" class="image-window-gif">
+            <img src="../gifs/lainhome.gif" alt="Lain Home" class="image-window-gif">
+            <img src="../gifs/lainhome.gif" alt="Lain Home" class="image-window-gif">
+            <img src="../gifs/lainhome.gif" alt="Lain Home" class="image-window-gif">
+        </div>
+        <div style="position: absolute; bottom: 0; left: 0; right: 0; background: #333; color: white; height: 30px; z-index: 999; border-top: 1px solid #555;">
+            <div style="overflow: hidden; white-space: nowrap; height: 100%; font-family: 'Orbitron', monospace; font-weight: bold; font-size: 13px;">
+                <div style="display: inline-block; animation: scroll-left 10s linear infinite; line-height: 30px; font-family: 'Orbitron', monospace; font-weight: bold; font-size: 13px;">LETS ALL LOVE LAIN LETS ALL LOVE LAIN LETS ALL LOVE LAIN LETS ALL LOVE LAIN LETS ALL LOVE LAIN LETS ALL LOVE LAIN</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="window minimized" id="aboutWindow" style="display: none;">
+        <div class="window-header">
+            <span class="window-title">About Me</span>
+            <div class="window-controls">
+                <button class="minimize-btn" onclick="minimizeWindow('aboutWindow')">−</button>
+                <button class="maximize-btn" onclick="maximizeWindow('aboutWindow')">□</button>
+                <button class="close-btn" onclick="closeWindow('aboutWindow')">×</button>
+            </div>
+        </div>
+        <div class="window-preview" style="font-size: 15px; overflow-y: auto; height: 325px;">
+            <div style="margin-bottom: 12px;">
+                <strong style="color: #E5E7EB !important;">Personal Info:</strong><br>
+                Hi, I'm William Wallace David. I'm currently 18 and turning 19 on October 23. I live in Tagaytay City.
+            </div>
+            <div style="margin-bottom: 12px;">
+                <strong style="color: #E5E7EB !important;">Goals:</strong><br>
+                • Ultimate PC setup (RTX 5090, Ryzen 9 9950X3D)<br>
+                • Penthouse in BGC<br>
+                • Matte black Mazda RX-7 FD<br>
+                • Own billiards hall & taco place<br>
+                • Radiohead concert in my room<br>
+                • Photo with Kurt Cobain<br>
+                • Graduate college<br>
+                • Contribute to Philippines<br>
+                • Family comfortable life<br>
+                • Private village for relatives<br>
+                • Leave name in history
+            </div>
+            <div>
+                <strong style="color: #E5E7EB !important;">Contacts:</strong><br>
+                📱 GCash: 0991 726 2304<br>
+                📧 Email: williamwallacedavid1023@gmail.com<br>
+                🎓 School: david.williamwallace@cvsu.edu.ph<br>
+                📷 IG: stpalomas_<br>
+                💬 Discord: st_palomas_2788
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="floating-music-player">
+    <div class="music-controls">
+        <button class="music-btn" onclick="previousTrack()" title="Previous">⏮</button>
+        <button class="music-btn play-pause" onclick="togglePlay()" title="Play/Pause">▶</button>
+        <button class="music-btn" onclick="nextTrack()" title="Next">⏭</button>
+    </div>
+    <div class="music-info">
+        <div class="song-title" id="songTitle">No song selected</div>
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+    </div>
+    <div class="volume-control">
+        <span>🔊</span>
+        <input type="range" class="volume-slider" min="0" max="100" value="50" onchange="setVolume(this.value)">
+    </div>
+</div>
+
+<div class="taskbar">
+    <div class="taskbar-image-left">
+        <img src="../PHOTOS/images/cybersigilism2.png" alt="Cybersigilism2" style="width: 550px; height: 52px; object-fit: cover; border-radius: 4px;">
+    </div>
+
+    <div class="taskbar-icons">
+        <div class="taskbar-item" title="Facts" onclick="toggleWindow('factsWindow')">
+            <img src="../PHOTOS/images/factsIcon.png" alt="Facts">
+            <div class="taskbar-preview">
+                <div class="taskbar-preview-content">
+                    <div class="taskbar-preview-thumbnail">📊</div>
+                    <div class="taskbar-preview-title">Facts Window</div>
+                </div>
+            </div>
+        </div>
+        <div class="taskbar-item" title="Favorites" onclick="toggleWindow('favoritesWindow')">
+            <img src="../PHOTOS/images/favIcon.png" alt="Favorites">
+            <div class="taskbar-preview">
+                <div class="taskbar-preview-content">
+                    <div class="taskbar-preview-thumbnail">⭐</div>
+                    <div class="taskbar-preview-title">Favorites Window</div>
+                </div>
+            </div>
+        </div>
+        <div class="taskbar-item" title="About" onclick="toggleWindow('aboutWindow')">
+            <img src="../PHOTOS/images/aboutIcon.png" alt="About">
+            <div class="taskbar-preview">
+                <div class="taskbar-preview-content">
+                    <div class="taskbar-preview-thumbnail">📝</div>
+                    <div class="taskbar-preview-title">About Window</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="taskbar-spacer"></div>
+    
+    <div class="taskbar-image">
+        <img src="../PHOTOS/images/cybersigilism.png" alt="Cybersigilism" style="width: 550px; height: 53px; object-fit: cover; border-radius: 4px;">
+    </div>
+</div>
+
+<div class="dancing-lain-container">
+    <img src="../gifs/dancinglain.gif" alt="Dancing Lain" class="floating-gif" title="Image" onclick="toggleWindow('imageWindow')" style="filter: none !important;">
+    <div class="platform"></div>
+</div>
+
+<!-- Fullscreen Preview Modal -->
+<div class="fullscreen-preview" id="fullscreenPreview">
+    <div class="preview-modal">
+        <div class="preview-header">
+            <h2 id="previewTitle">Category Preview</h2>
+            <button class="preview-close" onclick="closeFullscreenPreview()">×</button>
+        </div>
+        <div class="preview-body" id="previewBody">
+            <!-- Content will be dynamically loaded here -->
+        </div>
+    </div>
+</div>
+
+<script src="global-music.js"></script>
+<script>
+let openWindows = [];
+const windowPages = {
+    'factsWindow': 'facts.html',
+    'favoritesWindow': 'favorites.html',
+    'aboutWindow': 'about.html'
+};
+
+function toggleWindow(windowId) {
+    const window = document.getElementById(windowId);
+    if (openWindows.includes(windowId)) {
+        closeWindow(windowId);
+    } else {
+        openWindow(windowId);
+    }
+}
+
+function openWindow(windowId) {
+    const window = document.getElementById(windowId);
+    if (!openWindows.includes(windowId)) {
+        openWindows.push(windowId);
+        window.style.display = 'block';
+        window.style.opacity = '0';
+        window.style.transform = 'scale(0.8)';
+        window.classList.add('minimized');
+        arrangeWindows();
+        
+        setTimeout(() => {
+            window.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            window.style.opacity = '1';
+            window.style.transform = 'scale(1)';
+        }, 10);
+    }
+}
+
+function minimizeWindow(windowId) {
+    const window = document.getElementById(windowId);
+    window.classList.add('minimized');
+    arrangeWindows();
+}
+
+function maximizeWindow(windowId) {
+    if (windowPages[windowId]) {
+        const iframe = document.createElement('iframe');
+        iframe.src = windowPages[windowId];
+        iframe.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;border:none;z-index:9999;background:white';
+        document.body.appendChild(iframe);
+        
+        const closeBtn = document.createElement('button');
+        closeBtn.innerHTML = '×';
+        closeBtn.style.cssText = 'position:fixed;top:10px;right:10px;z-index:10000;background:rgba(40,40,40,0.8);color:#E5E7EB;border:none;padding:10px;cursor:pointer;border-radius:50%;width:40px;height:40px;font-size:20px';
+        closeBtn.onclick = () => {
+            document.body.removeChild(iframe);
+            document.body.removeChild(closeBtn);
+        };
+        document.body.appendChild(closeBtn);
+    }
+}
+
+function closeWindow(windowId) {
+    const window = document.getElementById(windowId);
+    window.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+    window.style.opacity = '0';
+    window.style.transform = 'scale(0.8)';
+    
+    setTimeout(() => {
+        window.style.display = 'none';
+        window.style.transition = '';
+        openWindows = openWindows.filter(id => id !== windowId);
+        arrangeWindows();
+    }, 300);
+}
+
+function arrangeWindows() {
+    const desktop = document.querySelector('.desktop');
+    const gap = 15;
+    
+    openWindows.forEach(windowId => {
+        const window = document.getElementById(windowId);
+        const isMinimized = window.classList.contains('minimized');
+        
+        if (windowId === 'favoritesWindow') {
+            const width = 300;
+            const height = isMinimized ? 550 : 550;
+            window.style.left = (desktop.clientWidth - width) / 2 + 50 + 'px';
+            window.style.top = (desktop.clientHeight - height - 50) + 'px';
+            window.style.width = width + 'px';
+            window.style.height = height + 'px';
+        } else if (windowId === 'imageWindow') {
+            const width = 900;
+            const height = isMinimized ? 200 : 200;
+            const favoritesLeft = (desktop.clientWidth - 300) / 2 + 50;
+            const favoritesRight = favoritesLeft + 300;
+            window.style.left = (favoritesRight - width) + 'px';
+            window.style.top = (desktop.clientHeight - 550 - 200 - 60) + 'px';
+            window.style.width = width + 'px';
+            window.style.height = height + 'px';
+        } else if (windowId === 'factsWindow') {
+            const width = 500;
+            const height = isMinimized ? 200 : 200;
+            window.style.left = (desktop.clientWidth - 500 - gap - 20) + 'px';
+            window.style.top = (gap + 400 + 70) + 'px';
+            window.style.width = width + 'px';
+            window.style.height = height + 'px';
+        } else if (windowId === 'aboutWindow') {
+            const width = 500;
+            const height = isMinimized ? 400 : 200;
+            window.style.left = (desktop.clientWidth - width - gap - 20) + 'px';
+            window.style.top = (gap + 50) + 'px';
+            window.style.width = width + 'px';
+            window.style.height = height + 'px';
+        }
+    });
+}
+
+// Preview system
+const previewContent = {
+    gaming: {
+        title: 'Gaming Hub',
+        content: `
+            <h3>Games I Already Finished</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 20px 0;">
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/games_images/cbp2077.jpg" alt="Cyberpunk 2077" style="width: 100%; height: 230px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Cyberpunk 2077</p>
+                    <div style="margin-top: 3px;">⭐⭐⭐⭐⭐</div>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/games_images/rdr2.jpg" alt="Red Dead Redemption 2" style="width: 100%; height: 230px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Red Dead Redemption 2</p>
+                    <div style="margin-top: 3px;">⭐⭐⭐⭐⭐</div>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/games_images/schedule1.jpg" alt="Schedule 1" style="width: 100%; height: 230px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Schedule 1</p>
+                    <div style="margin-top: 3px;">⭐⭐⭐⭐⭐</div>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/games_images/eternum.jpg" alt="Eternum" style="width: 100%; height: 230px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Eternum</p>
+                    <div style="margin-top: 3px;">⭐⭐⭐⭐⭐</div>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/games_images/theforest.jpg" alt="The Forest" style="width: 100%; height: 230px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">The Forest</p>
+                    <div style="margin-top: 3px;">⭐⭐⭐⭐⭐</div>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/games_images/kanjozoku.jpg" alt="Kanjozoku Game レーサー" style="width: 100%; height: 230px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Kanjozoku Game レーサー</p>
+                    <div style="margin-top: 3px;">⭐⭐⭐⭐⭐</div>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/games_images/stardewvalley.jpg" alt="Stardew Valley" style="width: 100%; height: 230px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Stardew Valley</p>
+                    <div style="margin-top: 3px;">⭐⭐⭐⭐⭐</div>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/games_images/cdr.jpg" alt="City Devil:Restart" style="width: 100%; height: 230px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">City Devil:Restart</p>
+                    <div style="margin-top: 3px;">⭐⭐⭐⭐⭐</div>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/games_images/bh.jpg" alt="Between Humanity" style="width: 100%; height: 230px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Between Humanity</p>
+                    <div style="margin-top: 3px;">⭐⭐⭐⭐☆</div>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/games_images/crossrealms.jpg" alt="Cross Realms" style="width: 100%; height: 230px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Cross Realms</p>
+                    <div style="margin-top: 3px;">⭐⭐⭐⭐⭐</div>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/games_images/MBiL.jpg" alt="My Bully is my Lover" style="width: 100%; height: 230px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">My Bully is my Lover</p>
+                    <div style="margin-top: 3px;">⭐⭐⭐⭐⭐</div>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/games_images/realminvader.jpg" alt="Realm Invader" style="width: 100%; height: 230px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Realm Invader</p>
+                    <div style="margin-top: 3px;">⭐⭐⭐⭐☆</div>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/games_images/ripples.jpg" alt="Ripples" style="width: 100%; height: 230px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Ripples</p>
+                    <div style="margin-top: 3px;">⭐⭐⭐⭐⭐</div>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/games_images/sicae.jpg" alt="Sicae" style="width: 100%; height: 230px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Sicae</p>
+                    <div style="margin-top: 3px;">⭐⭐⭐☆☆</div>
+                </div>
+            </div>
+            <h3> Games I Want to Play</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 20px 0;">
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/games_images2/Alan Wake 2.jpg" alt="Alan Wake 2" style="width: 100%; height: 230px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Alan Wake 2</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/games_images2/Assassins Creed Mirage.jpg" alt="Assassins Creed Mirage" style="width: 100%; height: 230px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Assassins Creed Mirage</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/games_images2/Battlefield™ 6.jpg" alt="Battlefield 6" style="width: 100%; height: 230px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Battlefield 6</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/games_images2/Detroit_Become_Human.jpg" alt="Detroit Become Human" style="width: 100%; height: 230px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Detroit Become Human</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/games_images2/Elden Ring.jpg" alt="Elden Ring" style="width: 100%; height: 230px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Elden Ring</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/games_images2/Escape from Tarkov.jpg" alt="Escape from Tarkov" style="width: 100%; height: 230px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Escape from Tarkov</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/games_images2/Ghost of Tsushima.jpg" alt="Ghost of Tsushima" style="width: 100%; height: 230px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Ghost of Tsushima</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/games_images2/Nier_Automata.jpg" alt="Nier Automata" style="width: 100%; height: 230px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Nier:Automata</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/games_images2/persona-5-royal.webp" alt="Persona 5 Royal" style="width: 100%; height: 230px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Persona 5 Royal</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/games_images2/Silent Hill f.jpg" alt="Silent Hill f" style="width: 100%; height: 230px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Silent Hill f</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/games_images2/The Witcher 3 Wild Hunt.jpg" alt="The Witcher 3:Wild Hunt" style="width: 100%; height: 230px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">The Witcher 3 Wild Hunt</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/games_images2/Visage.jpg" alt="Visage" style="width: 100%; height: 230px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Visage</p>
+                </div>
+            </div>
+        `
+    },
+    music: {
+        title: 'Music Corner',
+        content: `
+            <h3>my favorite albums of all time</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 20px 0;">
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/music_images/A Moon Shaped Pool.png" alt="A Moon Shaped Pool" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">A Moon Shaped Pool</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/music_images/diamond eyes.jpg" alt="Diamond Eyes" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Diamond Eyes</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/music_images/Have a Nice Life.jpg" alt="Have a Nice Life" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Have a Nice Life</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/music_images/III.jpg" alt="III" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">III</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/music_images/Kicx the Tragedy.jpg" alt="Kicx the Tragedy" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Kicx the Tragedy</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/music_images/loveless.png" alt="Loveless" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Loveless</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/music_images/OK Computer.jpg" alt="OK Computer" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">OK Computer</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/music_images/ooo ̟̞̝̜̙̘̗̖҉̵̴̨̧̢̡̼̻̺̹̳̲̱̰̯̮̭̬̫̪̩̦̥̤̣̠҈͈͇͉͍͎͓͔͕͖͙͚͜͢͢͢͢͢͢͢͢͢͢͢͢͢͢ͅ oʅ͡͡͡͡͡͡͡͡͡͡͡( ؞ৢ؞ؙؖ⁽⁾˜ัิีึื์๎้็๋๊⦁0 ̟̞̝̜̙̘̗̖҉̵̴̨̧̢̡̼̻̺̹̳̲̱̰̯̮ (Shapes).jpg" alt="Shapes" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Shapes</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/music_images/Saturday Night Wrist.jpg" alt="Saturday Night Wrist" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Saturday Night Wrist</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/music_images/sketches for my sweetheart the drunk.jpg" alt="Sketches for My Sweetheart the Drunk" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Sketches for My Sweetheart the Drunk</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/music_images/So Tonight that I Might See.jpg" alt="So Tonight that I Might See" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">So Tonight that I Might See</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/music_images/souvlaki.jpg" alt="Souvlaki" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Souvlaki</p>
+                </div>
+            </div>
+        `
+    },
+    anime: {
+        title: 'Anime',
+        content: `
+            <h3>Anime Movies/Series I Like</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 20px 0;">
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/86.jpg" alt="86" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">86</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/Akame Ga Kill.jpg" alt="Akame Ga Kill" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Akame Ga Kill</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/Angel Beats!.jpg" alt="Angel Beats!" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Angel Beats!</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/another.jpg" alt="Another" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Another</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/Banana Fish.jpg" alt="Banana Fish" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Banana Fish</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/Btooom!.jpg" alt="Btooom!" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Btooom!</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/Charlotte.jpg" alt="Charlotte" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Charlotte</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/code breaker.jpg" alt="Code Breaker" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Code Breaker</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/codeGeass.jpg" alt="Code Geass" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Code Geass</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/cyberpunk edgerunners.jpg" alt="Cyberpunk Edgerunners" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Cyberpunk Edgerunners</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/Darker Than Black.jpg" alt="Darker Than Black" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Darker Than Black</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/Darling in the Franxx.jpg" alt="Darling in the Franxx" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Darling in the Franxx</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/death note.jpg" alt="Death Note" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Death Note</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/Devilman Crybaby.jpg" alt="Devilman Crybaby" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Devilman Crybaby</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/Dragon Raja.webp" alt="Dragon Raja" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Dragon Raja</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/erased.jpg" alt="Erased" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Erased</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/gleipnir.jpg" alt="Gleipnir" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Gleipnir</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/Guilty Crown.jpg" alt="Guilty Crown" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Guilty Crown</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/K-Project.jpg" alt="K-Project" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">K-Project</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/Kiznaiver.png" alt="Kiznaiver" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Kiznaiver</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/nana.jpg" alt="Nana" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Nana</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/Neon Genesis Evangelion.jpg" alt="Neon Genesis Evangelion" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Neon Genesis Evangelion</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/noragami.jpg" alt="Noragami" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Noragami</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/perfect blue.jpg" alt="Perfect Blue" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Perfect Blue</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/Phantom Requiem.jpg" alt="Phantom Requiem" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Phantom Requiem</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/Plastic Memories.jpg" alt="Plastic Memories" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Plastic Memories</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/ReLIFE.jpg" alt="ReLIFE" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">ReLIFE</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/Serial Experiments Lain.jpg" alt="Serial Experiments Lain" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Serial Experiments Lain</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/Steins;Gate.jpg" alt="Steins;Gate" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Steins;Gate</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/summertime rendering.jpg" alt="Summertime Rendering" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Summertime Rendering</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/Takt op. Destiny.jpg" alt="Takt op. Destiny" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Takt op. Destiny</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/Terror in resonance.jpg" alt="Terror in Resonance" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Terror in Resonance</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/The Disappearance of Haruhi Suzumiya.jpg" alt="The Disappearance of Haruhi Suzumiya" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">The Disappearance of Haruhi Suzumiya</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/the future diary.jpg" alt="The Future Diary" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">The Future Diary</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/The Tunnel to Summer.jpg" alt="The Tunnel to Summer" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">The Tunnel to Summer</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="../PHOTOS/anime_images/Violet EVergarden.jpg" alt="Violet Evergarden" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;">
+                    <p style="margin: 0; font-size: 12px;">Violet Evergarden</p>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: 40px;">Preferred Genres</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 12px; margin: 20px 0; justify-content: center;">
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 12px 20px; border-radius: 25px; font-size: 14px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3); transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+                    Sci-Fi
+                </div>
+                <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 12px 20px; border-radius: 25px; font-size: 14px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(240, 147, 251, 0.3); transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+                    Dark Drama
+                </div>
+                <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; padding: 12px 20px; border-radius: 25px; font-size: 14px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3); transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+                    Seinen
+                </div>
+                <div style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); color: #333; padding: 12px 20px; border-radius: 25px; font-size: 14px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(168, 237, 234, 0.3); transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+                    Psychological
+                </div>
+                <div style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); color: #333; padding: 12px 20px; border-radius: 25px; font-size: 14px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(255, 236, 210, 0.3); transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+                    Action
+                </div>
+            </div>
+        `
+    }
+};
+
+function showFullscreenPreview(category) {
+    const modal = document.getElementById('fullscreenPreview');
+    const title = document.getElementById('previewTitle');
+    const body = document.getElementById('previewBody');
+    
+    const content = previewContent[category];
+    if (content) {
+        title.textContent = content.title;
+        body.innerHTML = content.content;
+        modal.classList.add('show');
+    }
+}
+
+function closeFullscreenPreview() {
+    const modal = document.getElementById('fullscreenPreview');
+    modal.classList.remove('show');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if we need to close a specific window
+    const windowToClose = localStorage.getItem('closeWindow');
+    if (windowToClose) {
+        closeWindow(windowToClose);
+        localStorage.removeItem('closeWindow');
+    }
+    
+    // Restore previously opened windows when returning from maximized pages
+    const savedOpenWindows = localStorage.getItem('openWindows');
+    if (savedOpenWindows) {
+        const windowsToReopen = JSON.parse(savedOpenWindows);
+        windowsToReopen.forEach(windowId => {
+            openWindow(windowId);
+        });
+        localStorage.removeItem('openWindows');
+    }
+    
+    const favoritesItems = document.querySelectorAll('.favorites-item[data-category]');
+    
+    favoritesItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const category = this.getAttribute('data-category');
+            showFullscreenPreview(category);
+        });
+    });
+    
+    // Close modal when clicking outside
+    document.getElementById('fullscreenPreview').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeFullscreenPreview();
+        }
+    });
+    
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeFullscreenPreview();
+        }
+    });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorites</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap');
+        * { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Orbitron', monospace; }
+        code, pre { font-family: 'JetBrains Mono', monospace; }
+    </style>
+</head>
+<body>
+
+<div class="fullscreen-window">
+    <div class="window-header">
+        <span class="window-title">Favorites</span>
+        <div class="window-controls">
+            <button class="back-btn" onclick="window.location.href='home.html'" title="Back">←</button>
+            <button class="minimize-btn" onclick="window.location.href='home.html'" title="Minimize">−</button>
+            <button class="close-btn" onclick="closeSpecificWindow('favoritesWindow')" title="Close">×</button>
+        </div>
+    </div>
+    <div class="window-content">
+        <h1>Favorites Page</h1>
+        <p>Your favorites content goes here...</p>
+        <div class="content-section">
+            <h2>Quick Access</h2>
+            <div class="quick-links">
+                <div class="quick-link" onclick="window.location.href='facts.html'">
+                    <img src="images/factsIcon.png" alt="Facts">
+                    <span>Facts</span>
+                </div>
+                <div class="quick-link" onclick="window.location.href='about.html'">
+                    <img src="images/aboutIcon.png" alt="About">
+                    <span>About</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h2>Entertainment</h2>
+            <div class="favorites-item" data-item="gaming">
+                <img src="images/gameIcon.png" alt="Gaming" class="favorite-icon">
+                <span>Gaming Hub</span>
+                <div class="preview-tooltip">
+                    <div class="preview-content">
+                        <div class="preview-thumbnail"></div>
+                        <h3 class="preview-title">Gaming Hub</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="favorites-item" data-item="music">
+                <img src="images/mscIcon.png" alt="Music" class="favorite-icon">
+                <span>Music Corner</span>
+                <div class="preview-tooltip">
+                    <div class="preview-content">
+                        <div class="preview-thumbnail"></div>
+                        <h3 class="preview-title">Music Corner</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="favorites-item" data-item="anime">
+                <img src="images/animeIcon.png" alt="Anime" class="favorite-icon">
+                <span>Anime</span>
+                <div class="preview-tooltip">
+                    <div class="preview-content">
+                        <div class="preview-thumbnail"></div>
+                        <h3 class="preview-title">Anime</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="taskbar">
+    <div class="taskbar-item" title="Facts" onclick="window.location.href='facts.html'">
+        <img src="../PHOTOS/images/factsIcon.png" alt="Facts">
+    </div>
+    <div class="taskbar-item" title="Favorites" onclick="window.location.href='favorites.html'">
+        <img src="../PHOTOS/images/favIcon.png" alt="Favorites">
+    </div>
+    <div class="taskbar-item" title="About" onclick="window.location.href='about.html'">
+        <img src="../PHOTOS/images/aboutIcon.png" alt="About">
+    </div>
+    
+    <div class="floating-music-player" style="position: static; margin-left: auto; bottom: auto; left: auto;">
+        <div class="music-controls">
+            <button class="music-btn" onclick="previousTrack()" title="Previous">⏮</button>
+            <button class="music-btn play-pause" onclick="togglePlay()" title="Play/Pause">▶</button>
+            <button class="music-btn" onclick="nextTrack()" title="Next">⏭</button>
+        </div>
+        <div class="music-info">
+            <div class="song-title" id="songTitle">No song selected</div>
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+        </div>
+        <div class="volume-control">
+            <span>🔊</span>
+            <input type="range" class="volume-slider" min="0" max="100" value="50" onchange="setVolume(this.value)">
+        </div>
+    </div>
+</div>
+
+<script src="global-music.js"></script>
+<script>
+function closeSpecificWindow(windowId) {
+    // Store which window to close in localStorage
+    localStorage.setItem('closeWindow', windowId);
+    // Navigate back to home
+    window.location.href = 'home.html';
+}
+</script>
+<script src="animations.js"></script>
+</body>
+</html>
